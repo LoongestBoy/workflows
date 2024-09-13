@@ -1,0 +1,20 @@
+name: Python Lint
+
+on: [push, pull_request]  # 触发条件，可以是 push、pull_request 或者其他事件
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # 运行在最新的 Ubuntu 虚拟环境
+
+    steps:
+    - uses: actions/checkout@v1  # 检出代码
+    - name: Set up Python  # 设置 Python 环境
+      uses: actions/setup-python@v1  # 使用 actions/setup-python 操作
+      with:
+        python-version: '3.8'  # 指定 Python 版本
+    - name: Lint with pylint  # 使用 pylint 进行代码检查
+      uses: ricardochaves/python-lint@v1.4.0  # 使用 python-lint 操作
+      with:
+        python-root-list: 'src'  # 指定你的 Python 代码所在的目录
+        args: >  # 传递额外的参数给 pylint
+          --disable=line-too-long,missing-docstring
